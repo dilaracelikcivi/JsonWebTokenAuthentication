@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
         <Authors>Dilara Çelikçivi</Authors>
         <PackageIconUrl>https://ps.w.org/jwt-auth/assets/icon-256x256.png?rev=2298869</PackageIconUrl>
         <PackageProjectUrl>https://github.com/dilaracelikcivi/JsonWebTokenAuthentication</PackageProjectUrl>
         <PackageTags>.NetCore Authentication Security Identity Json Web Token JWT</PackageTags>
         <Description>The JSONWebToken.Authentication structure that enables an application to use token based authentication for API and cookie based authentication for browser based web applications.</Description>
+        <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp2.1;netcoreapp3.1</TargetFrameworks>
     </PropertyGroup>
 
     <ItemGroup>
