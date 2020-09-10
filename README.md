@@ -4,4 +4,4 @@
 
 ## Installation
 
-Install JsonWebToken.Authentication now.
+Install [JsonWebToken.Authentication](https://www.nuget.org/account/Packages) package now, if you want to try this. 
