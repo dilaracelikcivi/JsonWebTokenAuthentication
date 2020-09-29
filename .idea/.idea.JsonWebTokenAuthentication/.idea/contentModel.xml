@@ -13,11 +13,19 @@
         <e p="JsonWebToken.Authentication.csproj" t="IncludeRecursive" />
         <e p="JsonWebToken.Authentication.nuspec" t="Include" />
         <e p="Model" t="Include">
-          <e p="TokenWithClaimsPrincipal.cs" t="Include" />
+          <e p="AuthenticationConfiguration" t="Include">
+            <e p="AuthenticationOptions.cs" t="Include" />
+          </e>
+          <e p="CookieConfiguration" t="Include">
+            <e p="CookieOptions.cs" t="Include" />
+          </e>
+          <e p="Token" t="Include">
+            <e p="TokenWithClaimsPrincipal.cs" t="Include" />
+          </e>
         </e>
         <e p="nuget.exe" t="Include" />
         <e p="obj" t="ExcludeRecursive">
-          <e p="Debug" t="Include">
+          <e p="Release" t="Include">
             <e p="netcoreapp2.1" t="Include">
               <e p="JsonWebToken.Authentication.AssemblyInfo.cs" t="Include" />
             </e>

@@ -1,30 +1,35 @@
 ﻿using System;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.Extensions.Configuration;
+using JsonWebToken.Authentication.Data;
+using JsonWebToken.Authentication.Model.CookieConfiguration;
 using Microsoft.Extensions.DependencyInjection;
+using AuthenticationOptions = JsonWebToken.Authentication.Model.AuthenticationConfiguration.AuthenticationOptions;
 
 namespace JsonWebToken.Authentication.
     Services
 {
     public static class AuthenticationService
     {
-        public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddJwtAuthentication(this IServiceCollection services,
+            AuthenticationOptions authenticationOptions, CookieOptions cookieOptions)
         {
+            services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddAuthentication(options =>
                 {
-                    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    options.DefaultSignOutScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    options.DefaultAuthenticateScheme = authenticationOptions.DefaultAuthenticateScheme;
+                    options.DefaultChallengeScheme = authenticationOptions.DefaultChallengeScheme;
+                    options.DefaultSignInScheme = authenticationOptions.DefaultSignInScheme;
+                    options.DefaultSignOutScheme = authenticationOptions.DefaultSignOutScheme;
                 })
                 .AddCookie(options =>
                 {
-                    options.LoginPath = "/Account/Login";
-                    options.LogoutPath = "/Account/Logout";
-                    options.AccessDeniedPath = options.LoginPath;
-                    options.ReturnUrlParameter = "returnUrl";
-                    options.Cookie.Name = "";
-                    options.ExpireTimeSpan = TimeSpan.FromMinutes(120);
+                    if (cookieOptions.ReturnUrlParameter != null)
+                        options.ReturnUrlParameter = cookieOptions.ReturnUrlParameter;
+
+                    if (cookieOptions.CookieName != null)
+                        options.Cookie.Name = cookieOptions.CookieName;
+
+                    if (cookieOptions.ExpireTime > 0)
+                        options.ExpireTimeSpan = TimeSpan.FromMinutes(cookieOptions.ExpireTime);
                 });
 
             return services;
