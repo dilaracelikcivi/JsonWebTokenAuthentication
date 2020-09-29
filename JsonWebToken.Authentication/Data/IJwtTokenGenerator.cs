@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
-using JsonWebToken.Authentication.Model;
+using JsonWebToken.Authentication.Model.Token;
 
 namespace JsonWebToken.Authentication.Data
 {

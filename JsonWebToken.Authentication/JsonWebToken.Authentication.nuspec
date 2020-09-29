@@ -26,7 +26,7 @@
   <requireLicenseAcceptance>false</requireLicenseAcceptance>
 
   <!-- Any details about this particular release -->
-  <releaseNotes/>
+  <releaseNotes>$releaseNotes$</releaseNotes>
 
   <!-- 
       The description can be used in package manager UI. Note that the
@@ -52,5 +52,6 @@
 <!-- A package icon downloaded when the package is installed -->
 <files>
   <file src="jwt-icon.png" target="jwt-icon.png" />
+  <file src="README.md" target="README.md" />
 </files>
 </package>

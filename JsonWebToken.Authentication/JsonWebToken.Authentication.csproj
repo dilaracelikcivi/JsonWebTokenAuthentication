@@ -7,6 +7,8 @@
         <PackageTags>.NetCore Authentication Security Identity Json Web Token JWT</PackageTags>
         <Description>The JSONWebToken.Authentication structure that enables an application to use token based authentication for API and cookie based authentication for browser based web applications.</Description>
         <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp2.1;netcoreapp3.1</TargetFrameworks>
+        <PackageReleaseNotes>The JwtGenerator has been initialized in the Authentication extension. Also, authentication options bug has been fixed.</PackageReleaseNotes>
+        <PackageVersion>1.0.1</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
