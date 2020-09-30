@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Authentication;
 using System.Security.Claims;
-using JsonWebToken.Authentication.Model.Token;
+using JsonWebToken.Authentication.Extensions;
+using JsonWebToken.Authentication.Model;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.IdentityModel.Tokens;
 
@@ -16,28 +16,28 @@ namespace JsonWebToken.Authentication.Data
         /// This method provides to generate a JSON Web Token with a ClaimsPrincipal object both containing the claims passed in.
         /// Use this method for ASP.NET Core web application with cookie authentication.
         /// </summary>
-        /// <param name="userClaims"></param>
+        /// <param name="model"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="AuthenticationException"></exception>
-        public TokenWithClaimsPrincipal GenerateAccessTokenWithClaimsPrincipal(IEnumerable<Claim> userClaims)
+        public TokenWithClaimsPrincipal GenerateAccessTokenWithClaimsPrincipal(AccessTokenToClaimsModel model)
         {
-            // check claim is null or not
-            if (userClaims == null)
-                throw new ArgumentException("User claim cannot be null !");
+            // validate model
+            if (!model.IsValid())
+                throw new ArgumentException(model.ValidationResult());
 
             // convert claim type as list
-            userClaims = userClaims.ToList();
+            model.UserClaims = model.UserClaims.ToList();
 
             // generate access token
-            var token = GenerateAccessToken(userClaims);
+            var token = GenerateAccessToken(new AccessTokenModel(model.Secret, model.UserClaims));
 
             // check that token generated or not
             if (token == null)
                 throw new AuthenticationException("Generate token failed !");
 
             // create user identity, principal and properties
-            var userIdentity = new ClaimsIdentity(userClaims, "Login");
+            var userIdentity = new ClaimsIdentity(model.UserClaims, "Login");
             var principal = new ClaimsPrincipal(userIdentity);
             var properties = CreateAuthenticationProperties(token);
 
@@ -53,33 +53,30 @@ namespace JsonWebToken.Authentication.Data
         /// This method provides to generate a string JSON Web Token containing the claims passed in.
         /// Use this method for ASP.NET Core Web API applications with cookieless authentication.
         /// </summary>
-        /// <param name="userClaims"></param>
-        /// <param name="issuer"></param>
-        /// <param name="audience"></param>
-        /// <param name="secret"></param>
-        /// <param name="algorithm"></param>
-        /// <param name="expirationTime"></param>
+        /// <param name="model"></param>
         /// <returns></returns>
-        public string GenerateAccessToken(IEnumerable<Claim> userClaims, string issuer = null, string audience = null,
-            string secret = "ERMN05OPLoDvbTTa/QkqLNMI7cPLguaRyHzyg7n5qNBVjQmtBhz4SzYh4NBVCXi3KJHlSXKP+oi2+bXr6CUYTR==",
-            string algorithm = SecurityAlgorithms.HmacSha256Signature, int expirationTime = 120)
+        public string GenerateAccessToken(AccessTokenModel model)
         {
+            // validate model
+            if (!model.IsValid())
+                throw new ArgumentNullException(model.ValidationResult());
+
             // create a security key
-            var secretKey = new SymmetricSecurityKey(Convert.FromBase64String(secret));
+            var secretKey = new SymmetricSecurityKey(Convert.FromBase64String(model.Secret));
 
             // create a sign in credential
-            var signinCredential = new SigningCredentials(secretKey, algorithm);
+            var signinCredential = new SigningCredentials(secretKey, model.Algorithm);
 
             // generate jwt access token
-            var token = new JwtSecurityToken(issuer, audience, userClaims, DateTime.UtcNow,
-                DateTime.UtcNow.AddMinutes(expirationTime), signinCredential);
+            var token = new JwtSecurityToken(model.Issuer, model.Audience, model.UserClaims, DateTime.UtcNow,
+                DateTime.UtcNow.AddMinutes(model.ExpirationTime), signinCredential);
 
             // write generated token 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
         /// <summary>
-        ///     This method provides to create an authentication properties
+        /// This method provides to create an authentication properties
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>
