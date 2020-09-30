@@ -1,5 +1,5 @@
 ﻿
-namespace JsonWebToken.Authentication.Model.CookieConfiguration
+namespace JsonWebToken.Authentication.Model.ServiceConfiguration
 {
     public class CookieOptions
     {

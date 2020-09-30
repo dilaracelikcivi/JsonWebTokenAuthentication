@@ -1,8 +1,7 @@
 ﻿using System;
 using JsonWebToken.Authentication.Data;
-using JsonWebToken.Authentication.Model.CookieConfiguration;
 using Microsoft.Extensions.DependencyInjection;
-using AuthenticationOptions = JsonWebToken.Authentication.Model.AuthenticationConfiguration.AuthenticationOptions;
+using JsonWebToken.Authentication.Model.ServiceConfiguration;
 
 namespace JsonWebToken.Authentication.
     Services
@@ -13,6 +12,7 @@ namespace JsonWebToken.Authentication.
             AuthenticationOptions authenticationOptions, CookieOptions cookieOptions)
         {
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+            
             services.AddAuthentication(options =>
                 {
                     options.DefaultAuthenticateScheme = authenticationOptions.DefaultAuthenticateScheme;

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 
-namespace JsonWebToken.Authentication.Model.AuthenticationConfiguration
+namespace JsonWebToken.Authentication.Model.ServiceConfiguration
 {
     public class AuthenticationOptions
     {

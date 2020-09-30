@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 
-namespace JsonWebToken.Authentication.Model.Token
+namespace JsonWebToken.Authentication.Model
 {
     public class TokenWithClaimsPrincipal
     {
