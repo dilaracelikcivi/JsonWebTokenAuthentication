@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Authentication;
 using System.Security.Claims;
 using JsonWebToken.Authentication.Extensions;
@@ -23,18 +22,13 @@ namespace JsonWebToken.Authentication.Data
         public TokenWithClaimsPrincipal GenerateAccessTokenWithClaimsPrincipal(AccessTokenToClaimsModel model)
         {
             // validate model
-            if (!model.IsValid())
-                throw new ArgumentException(model.ValidationResult());
-
-            // convert claim type as list
-            model.UserClaims = model.UserClaims.ToList();
+            if (!model.IsValid()) throw new ArgumentException(model.ValidationResult());
 
             // generate access token
             var token = GenerateAccessToken(new AccessTokenModel(model.Secret, model.UserClaims));
 
-            // check that token generated or not
-            if (token == null)
-                throw new AuthenticationException("Generate token failed !");
+            // check that token is generated or not
+            if (token == null) throw new AuthenticationException("Token could not generate!");
 
             // create user identity, principal and properties
             var userIdentity = new ClaimsIdentity(model.UserClaims, "Login");
@@ -58,8 +52,7 @@ namespace JsonWebToken.Authentication.Data
         public string GenerateAccessToken(AccessTokenModel model)
         {
             // validate model
-            if (!model.IsValid())
-                throw new ArgumentNullException(model.ValidationResult());
+            if (!model.IsValid()) throw new ArgumentNullException(model.ValidationResult());
 
             // create a security key
             var secretKey = new SymmetricSecurityKey(Convert.FromBase64String(model.Secret));
@@ -83,18 +76,17 @@ namespace JsonWebToken.Authentication.Data
         private AuthenticationProperties CreateAuthenticationProperties(string token)
         {
             var authenticationProperties = new AuthenticationProperties();
-
-            authenticationProperties.StoreTokens(
-                new[]
+            
+            var storeTokenList = new[]
+            {
+                new AuthenticationToken
                 {
-                    new AuthenticationToken
-                    {
-                        Name = "jwt",
-                        Value = token
-                    }
+                    Name = "jwt",
+                    Value = token
                 }
-            );
+            };
 
+            authenticationProperties.StoreTokens(storeTokenList);
             return authenticationProperties;
         }
     }
