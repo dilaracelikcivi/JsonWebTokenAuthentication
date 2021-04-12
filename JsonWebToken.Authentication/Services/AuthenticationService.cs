@@ -3,16 +3,20 @@ using JsonWebToken.Authentication.Data;
 using Microsoft.Extensions.DependencyInjection;
 using JsonWebToken.Authentication.Model.ServiceConfiguration;
 
-namespace JsonWebToken.Authentication.
-    Services
+namespace JsonWebToken.Authentication.Services
 {
     public static class AuthenticationService
     {
-        public static IServiceCollection AddJwtAuthentication(this IServiceCollection services,
-            AuthenticationOptions authenticationOptions, CookieOptions cookieOptions)
+        public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, 
+            AuthenticationOptions authenticationOptions = null, CookieOptions cookieOptions = null)
         {
-            services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+            // initialize authentication options if it is null
+            if (authenticationOptions == null) authenticationOptions = new AuthenticationOptions();
             
+            // initialize cookie options if this parameter is null
+            if (cookieOptions == null) cookieOptions = new CookieOptions();
+
+            // configure authentication and cookie options with specified options
             services.AddAuthentication(options =>
                 {
                     options.DefaultAuthenticateScheme = authenticationOptions.DefaultAuthenticateScheme;
@@ -31,7 +35,8 @@ namespace JsonWebToken.Authentication.
                     if (cookieOptions.ExpireTime > 0)
                         options.ExpireTimeSpan = TimeSpan.FromMinutes(cookieOptions.ExpireTime);
                 });
-
+            
+            services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             return services;
         }
     }
