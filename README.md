@@ -4,21 +4,25 @@
 
 ## Installation 
 
-Install [JsonWebToken.Authentication](https://www.nuget.org/account/Packages) package now, if you want to try this. 
+Install [JsonWebToken.Authentication](https://www.nuget.org/packages/JsonWebToken.Authentication) package now, if you want to try. 
 
 ## Package Manager Console
 
 ```
-Install-Package JsonWebToken.Authentication -Version 1.0.0
+Install-Package JsonWebToken.Authentication -Version 1.1.0
 ```
 
 ### .NET CLI
 
 ```
-dotnet add package JsonWebToken.Authentication --version 1.0.0
+dotnet add package JsonWebToken.Authentication --version 1.1.0
 ```
 
 ## Usage
 ```
-Hello World !
+public void ConfigureServices(IServiceCollection services)
+{
+     services.AddControllers();
+     services.AddJwtAuthentication(new AuthenticationOptions(), new CookieOptions());
+}
 ```
