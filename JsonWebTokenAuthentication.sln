@@ -1,12 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonWebToken.Authentication", "JsonWebToken.Authentication\JsonWebToken.Authentication.csproj", "{075B4C90-5594-402C-8F4A-777D9F76B38A}"
+# 
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D71E2049-B75E-41F0-83D8-DCD72F86E69B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B12ADE37-C4FB-440B-8BE2-D586BC7E785F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonWebToken.Authentication", "src\JsonWebToken.Authentication\JsonWebToken.Authentication.csproj", "{A6CBCF17-9D96-4BC5-8079-8FD2172AEA24}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{A6282D78-9D49-497E-B608-78B7B947C9FC}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{929D6505-15DA-4B69-B6F8-392A16C3489B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test.JsonWebToken.Authentication", "test.JsonWebToken.Authentication\test.JsonWebToken.Authentication.csproj", "{3C4DC416-3FEA-4EBE-97DD-F5F78E071F7A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonWebTokenAuthentication.Test", "test\JsonWebTokenAuthentication.Test\JsonWebTokenAuthentication.Test.csproj", "{ECB5E7E9-D10E-4217-910C-17750FEE3D26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,17 +15,17 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{075B4C90-5594-402C-8F4A-777D9F76B38A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{075B4C90-5594-402C-8F4A-777D9F76B38A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{075B4C90-5594-402C-8F4A-777D9F76B38A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{075B4C90-5594-402C-8F4A-777D9F76B38A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3C4DC416-3FEA-4EBE-97DD-F5F78E071F7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3C4DC416-3FEA-4EBE-97DD-F5F78E071F7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3C4DC416-3FEA-4EBE-97DD-F5F78E071F7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3C4DC416-3FEA-4EBE-97DD-F5F78E071F7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6CBCF17-9D96-4BC5-8079-8FD2172AEA24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6CBCF17-9D96-4BC5-8079-8FD2172AEA24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6CBCF17-9D96-4BC5-8079-8FD2172AEA24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6CBCF17-9D96-4BC5-8079-8FD2172AEA24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECB5E7E9-D10E-4217-910C-17750FEE3D26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECB5E7E9-D10E-4217-910C-17750FEE3D26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECB5E7E9-D10E-4217-910C-17750FEE3D26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECB5E7E9-D10E-4217-910C-17750FEE3D26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{075B4C90-5594-402C-8F4A-777D9F76B38A} = {B12ADE37-C4FB-440B-8BE2-D586BC7E785F}
-		{3C4DC416-3FEA-4EBE-97DD-F5F78E071F7A} = {A6282D78-9D49-497E-B608-78B7B947C9FC}
+		{A6CBCF17-9D96-4BC5-8079-8FD2172AEA24} = {D71E2049-B75E-41F0-83D8-DCD72F86E69B}
+		{ECB5E7E9-D10E-4217-910C-17750FEE3D26} = {929D6505-15DA-4B69-B6F8-392A16C3489B}
 	EndGlobalSection
 EndGlobal

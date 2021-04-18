@@ -6,7 +6,7 @@
         <PackageProjectUrl>https://github.com/dilaracelikcivi/JsonWebTokenAuthentication</PackageProjectUrl>
         <PackageTags>.NetCore Authentication Security Identity Json Web Token JWT</PackageTags>
         <Description>The JSONWebToken.Authentication structure that enables an application to use token based authentication for API and cookie based authentication for browser based web applications.</Description>
-        <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp2.1;netcoreapp3.1</TargetFrameworks>
+        <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp2.1;netcoreapp3.1;netcoreapp5.0</TargetFrameworks>
         <PackageReleaseNotes>Json Web Token method signatures have been changed from parameters to model and model validation extension has been created to validate these models.</PackageReleaseNotes>
         <PackageVersion>1.1.0</PackageVersion>
     </PropertyGroup>
