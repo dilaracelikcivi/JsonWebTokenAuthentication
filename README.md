@@ -40,17 +40,23 @@ public class AccountController : ControllerBase
 {
     private readonly IJwtTokenGenerator _jwtTokenGenerator;
 
-    public AccountController(IJwtTokenGenerator jwtTokenGenerator)
-    {
-         _jwtTokenGenerator = jwtTokenGenerator;
-    }
+    public AccountController(IJwtTokenGenerator jwtTokenGenerator) => _jwtTokenGenerator = jwtTokenGenerator;
     
     [HttpPost]
     public IActionResult Login(LoginModel model)
     {
           ...
+          
+          // create claims
+          var userClaims = new List<Claims> 
+          { 
+               new Claim(ClaimTypes.Name, fullName),
+               new Claim(ClaimTypes.Email, email)
+          };
+          
+          // generate token
           var accessToken = _jwtTokenGenerator.GenerateAccessToken(new AccessTokenModel(yourSecretKey, userClaims));
-          ...
+          return Ok(accessToken);
     }
 }
 ```
@@ -59,25 +65,35 @@ public class AccountController : ControllerBase
 ```
 public class AccountController : Controller
 {
+    private readonly IAccountService _accountService;
     private readonly IJwtTokenGenerator _jwtTokenGenerator;
 
-    public AccountController(IJwtTokenGenerator jwtTokenGenerator)
-    {
-         _jwtTokenGenerator = jwtTokenGenerator;
+    public AccountController(IAccountService accountService, IJwtTokenGenerator jwtTokenGenerator)
+    { 
+          _accountService = accountService;
+          _jwtTokenGenerator = jwtTokenGenerator;
     }
     
     [HttpPost]
     public IActionResult Login(LoginModel model)
     {
-          ...
+          // get generated api access token for user claims
+          var apiAccessToken = await _accountService.Login(model);
+
+          // decode incoming access token from api
+          var decodedAccessToken = new JwtSecurityTokenHandler().ReadJwtToken(apiAccessToken);
+    
+          // create token model
           var accessTokenModel = new AccessTokenToClaimsModel
           {
                Secret = yourSecretKey,
-               UserClaims = userClaims
+               UserClaims = decodedAccessToken.userClaims
           };
 
+          // generate new token by cookie based authentication
           var accessToken = _jwtTokenGenerator.GenerateAccessTokenWithClaimsPrincipal(accessTokenModel);
           
+          // sign in the system
           await HttpContext.SignInAsync(accessToken.ClaimsPrincipal, accessToken.AuthenticationProperties);
           ...
     }
