@@ -48,7 +48,7 @@ public class AccountController : ControllerBase
           ...
           
           // create claims
-          var userClaims = new List<Claims> 
+          var userClaims = new[]
           { 
                new Claim(ClaimTypes.Name, fullName),
                new Claim(ClaimTypes.Email, email)
